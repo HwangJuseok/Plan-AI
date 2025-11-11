@@ -1,1 +1,387 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>황주석 포트폴리오 | 플랜-AI (Plan-AI)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        cyan: {
+                            300: '#67e8f9',
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                        },
+                        purple: {
+                            400: '#c084fc',
+                            500: '#a855f7',
+                        },
+                        slate: {
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .active-nav {
+            @apply text-cyan-300 font-bold;
+        }
 
+        .section-heading {
+            @apply text-3xl font-bold text-white text-center mb-16 inline-block border-b-2 border-cyan-500 pb-3;
+        }
+
+        .card {
+            @apply bg-slate-900/60 backdrop-blur-md p-8 rounded-xl shadow-lg border border-slate-700/50 transition-transform duration-300 hover:scale-[1.02];
+        }
+
+        .card-heading {
+            @apply text-xl font-bold text-cyan-400 mb-6;
+        }
+        .body-text {
+            @apply text-slate-300 text-base leading-loose;
+        }
+        .list-item {
+            @apply relative pl-6 text-slate-300 before:content-['\2713'] before:absolute before:left-0 before:text-cyan-400 before:font-bold;
+        }
+        
+        /* --- [재수정] 2:8 비율 왼쪽 정렬 타임라인 --- */
+        .timeline-container {
+            /* 타임라인 전체 컨테이너, 왼쪽 패딩으로 STEP 영역 확보 */
+            @apply relative max-w-2xl mx-auto pl-[7rem]; /* 7rem (112px)을 STEP+라인 영역으로 사용 */
+        }
+        .timeline-line {
+            /* 세로선: STEP 영역(7rem)에서 1rem 뺀 6rem에 위치 */
+            @apply absolute left-[6rem] top-0 h-full w-0.5 bg-slate-700;
+        }
+        .timeline-item {
+            /* 각 아이템 래퍼 */
+            @apply relative mb-12;
+        }
+        .timeline-step-label {
+            /* STEP 레이블: 0~6rem 영역에서 오른쪽 정렬 (pr-4 패딩) */
+            @apply absolute left-[-7rem] top-1 w-[6rem] pr-4 text-right text-sm text-slate-400 font-medium;
+        }
+        .timeline-dot {
+            /* 점: 6rem 위치의 세로선 중앙에 위치 */
+            @apply absolute left-[-1rem] top-1 w-5 h-5 bg-gradient-to-b from-cyan-300 to-purple-400 rounded-full border-4 border-slate-950 z-10; 
+            /* left: -1rem; == (pl-7rem) - (line left-6rem) - (dot width 0.5rem) */
+        }
+        .timeline-card {
+            /* 카드: 기본 왼쪽 마진(pl-7rem)을 따름 */
+            @apply relative bg-slate-900/60 backdrop-blur-md p-6 rounded-lg shadow-lg border border-slate-700/50;
+        }
+        .timeline-card::before {
+            /* 꼬리표: 카드 왼쪽(-left-2)에서 세로선(-1rem)을 향해 뻗음 */
+            @apply content-[''] absolute top-4 -left-2 w-4 h-4 bg-slate-900/60 border-l border-b border-slate-700/50 rotate-45;
+        }
+        /* --- 타임라인 스타일 끝 --- */
+
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 font-sans antialiased relative isolate">
+
+    <div class="absolute inset-0 -z-10 overflow-hidden">
+        <svg class="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 [mask-image:radial-gradient(closest-side,white,transparent)]" aria-hidden="true">
+            <ellipse cx="50%" cy="50%" rx="60%" ry="40%" fill="none" stroke="#22d3ee" stroke-width="0.5" transform="rotate(20 50 50)" />
+            <path d="M-100 0 L200 100" stroke="#a855f7" stroke-width="0.2" />
+        </svg>
+        <div class="absolute left-1/2 top-1/4 h-[40rem] w-[50rem] -translate-x-1/2 rounded-full bg-gradient-to-tr from-cyan-500/30 to-purple-500/30 blur-[120px] filter opacity-50"></div>
+        <div class="absolute left-1/4 top-3/4 h-[30rem] w-[60rem] -translate-x-1/2 rounded-full bg-gradient-to-b from-cyan-500/10 to-purple-500/10 blur-[100px] filter opacity-70"></div>
+    </div>
+
+
+    <nav class="sticky top-0 bg-slate-950/80 backdrop-blur-lg z-50 border-b border-slate-700/50">
+        <div class="container mx-auto max-w-6xl px-4 py-5 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-white">황주석 (플랜-AI)</h1>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-300" id="nav-links">
+                <a href="#about" id="nav-about" class="hover:text-cyan-300 transition-colors">소개</a>
+                <a href="#skills" id="nav-skills" class="hover:text-cyan-300 transition-colors">기술 스택</a>
+                <a href="#project" id="nav-project" class="hover:text-cyan-300 transition-colors">프로젝트</a>
+                <a href="#gallery" id="nav-gallery" class="hover:text-cyan-300 transition-colors">관련 이미지</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto max-w-6xl px-4 py-16 md:py-24 space-y-32">
+
+        <section id="about" class="flex flex-col items-center text-center space-y-10">
+            <div class="flex justify-center">
+                <div class="p-1.5 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full">
+                    <img src="https://placehold.co/256x256/1e293b/22d3ee?text=Juseok" 
+                         alt="황주석 프로필 이미지" 
+                         class="rounded-full w-48 h-48 md:w-56 md:h-56 object-cover border-4 border-slate-900 shadow-xl">
+                </div>
+            </div>
+            <div class="space-y-6 max-w-3xl">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white leading-tight">
+                    기술적 한계에 부딪혔을 때
+                    <span class="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-400 py-2">
+                        대안을 찾아 돌파하는 개발자
+                    </span>
+                    황주석입니다.
+                </h2>
+                <div class="flex flex-wrap gap-6 pt-2 justify-center text-slate-400">
+                    <a href="mailto:hwangjs02@naver.com" class="flex items-center space-x-2 text-sm font-medium hover:text-cyan-300 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg>
+                        <span>hwangjs02@naver.com</span>
+                    </a>
+                    <a href="https://github.com/HwangJuseok" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 text-sm font-medium hover:text-cyan-300 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 0C4.477 0 0 4.477 0 10c0 4.418 2.865 8.166 6.839 9.49.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.157-1.11-1.465-1.11-1.465-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.949 0-1.09.39-1.984 1.03-2.685-.103-.253-.446-1.272.098-2.649 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.336 1.909-1.296 2.747-1.026 2.747-1.026.546 1.377.202 2.396.1 2.649.64.701 1.03 1.595 1.03 2.685 0 3.848-2.339 4.693-4.566 4.942.359.309.678.92.678 1.854 0 1.338-.012 2.419-.012 2.746 0 .268.18.58.688.482A10.001 10.001 0 0020 10c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+                        <span>github.com/HwangJuseok</span>
+                    </a>
+                </div>
+                <div class="body-text space-y-4 pt-4 text-left md:text-center">
+                    <p>저는 사용자의 아이디어를 기술로 구현하는 과정에 매력을 느끼는 개발자입니다. 특히 React와 Python(FastAPI)을 함께 사용하여 풀스택으로 서비스를 구축하는 경험을 즐깁니다.</p>
+                    <p>이번 '플랜-AI' 프로젝트는 저에게 예상치 못한 큰 도전이었습니다. 생성형 AI(Gemini)와 네이버 지도 API를 연동하는 과정에서, 제가 사용한 NCP(Naver Cloud Platform) 계정이 'VPC' 전용 환경이라 프론트엔드에서 Maps JavaScript API (Web JS)의 인증에 계속 실패하는 기술적 한계에 부딪혔습니다. '동적 지도'라는 핵심 기능을 띄울 수 없는 막다른 상황이었습니다.</p>
+                    <p class="font-medium text-slate-100">
+                        저는 포기하는 대신, Static Map (REST API)이라는 대안을 찾아냈습니다. 백엔드에서 AI의 응답을 기반으로 지도 '이미지'를 직접 생성하고, 이를 Base64로 인코딩하여 프론트엔드로 전달하는 방식으로 아키텍처를 전면 수정하여 문제를 해결했습니다. 이 경험을 통해 "길이 막혔을 때 포기하는 것이 아니라, 다른 길을 찾아내는 것"이 개발자의 역량임을 배울 수 있었습니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="text-center">
+            <h3 class="text-3xl font-bold text-center mb-16 inline-block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-400 pb-3 border-b-2 border-cyan-500">
+                기술 스택 (Skills)
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="card text-left">
+                    <h4 class="text-white text-2xl font-bold mb-6">프론트엔드</h4>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="inline-block bg-blue-600/20 text-blue-300 text-sm font-semibold px-4 py-1.5 rounded-full border border-blue-600/50 transition-transform duration-200 hover:scale-105">HTML</span>
+                        <span class="inline-block bg-sky-600/20 text-sky-300 text-sm font-semibold px-4 py-1.5 rounded-full border border-sky-600/50 transition-transform duration-200 hover:scale-105">CSS</span>
+                        <span class="inline-block bg-yellow-600/20 text-yellow-300 text-sm font-semibold px-4 py-1.5 rounded-full border border-yellow-600/50 transition-transform duration-200 hover:scale-105">JavaScript</span>
+                        <span class="inline-block bg-blue-400/20 text-blue-200 text-sm font-semibold px-4 py-1.5 rounded-full border border-blue-400/50 transition-transform duration-200 hover:scale-105">React</span>
+                        <span class="inline-block bg-teal-600/20 text-teal-300 text-sm font-semibold px-4 py-1.5 rounded-full border border-teal-600/50 transition-transform duration-200 hover:scale-105">Tailwind CSS</span>
+                    </div>
+                </div>
+                
+                <div class="card text-left">
+                    <h4 class="text-white text-2xl font-bold mb-6">백엔드</h4>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="inline-block bg-green-600/20 text-green-300 text-sm font-semibold px-4 py-1.5 rounded-full border border-green-600/50 transition-transform duration-200 hover:scale-105">Python</span>
+                        <span class="inline-block bg-purple-600/20 text-purple-300 text-sm font-semibold px-4 py-1.5 rounded-full border border-purple-600/50 transition-transform duration-200 hover:scale-105">FastAPI</span>
+                        <span class="inline-block bg-slate-600/20 text-slate-300 text-sm font-semibold px-4 py-1.5 rounded-full border border-slate-600/50 transition-transform duration-200 hover:scale-105">Uvicorn</span>
+                        <span class="inline-block bg-pink-600/20 text-pink-300 text-sm font-semibold px-4 py-1.5 rounded-full border border-pink-600/50 transition-transform duration-200 hover:scale-105">Pydantic</span>
+                        <span class="inline-block bg-orange-600/20 text-orange-300 text-sm font-semibold px-4 py-1.5 rounded-full border border-orange-600/50 transition-transform duration-200 hover:scale-105">Requests</span>
+                    </div>
+                </div>
+                
+                <div class="card text-left">
+                    <h4 class="text-white text-2xl font-bold mb-6">AI & Tools</h4>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="inline-block bg-indigo-600/20 text-indigo-300 text-sm font-semibold px-4 py-1.5 rounded-full border border-indigo-600/50 transition-transform duration-200 hover:scale-105">Gemini API (gemini-2.5-flash)</span>
+                        <span class="inline-block bg-blue-700/20 text-blue-300 text-sm font-semibold px-4 py-1.5 rounded-full border border-blue-700/50 transition-transform duration-200 hover:scale-105">NCP Geocoding API</span>
+                        <span class="inline-block bg-red-700/20 text-red-300 text-sm font-semibold px-4 py-1.5 rounded-full border border-red-700/50 transition-transform duration-200 hover:scale-105">NCP Static Map API</span>
+                        <span class="inline-block bg-gray-600/20 text-gray-300 text-sm font-semibold px-4 py-1.5 rounded-full border border-gray-600/50 transition-transform duration-200 hover:scale-105">Git</span>
+                        <span class="inline-block bg-lime-600/20 text-lime-300 text-sm font-semibold px-4 py-1.5 rounded-full border border-lime-600/50 transition-transform duration-200 hover:scale-105">Python venv</span>
+                        <span class="inline-block bg-purple-700/20 text-purple-300 text-sm font-semibold px-4 py-1.5 rounded-full border border-purple-700/50 transition-transform duration-200 hover:scale-105">VSCode</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="project" class="text-center">
+            <h3 class="section-heading">프로젝트: 플랜-AI (Plan-AI)</h3>
+            <div class="mb-16">
+                <img src="https://placehold.co/1200x600/1e293b/22d3ee?text=Plan-AI+App+Screenshot" 
+                     alt="플랜-AI 메인 이미지" 
+                     class="rounded-xl shadow-xl w-full object-cover border-2 border-slate-700/50">
+            </div>
+
+            <div class="card space-y-16 text-left">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <div>
+                        <h4 class="card-heading">문제 정의</h4>
+                        <p class="body-text">사용자에게 AI 기반 여행 추천 코스를 '시각적'으로 제공하는 것이 목표였습니다. 하지만 개발에 사용한 NCP 계정이 'VPC' 전용 환경이라, 프론트엔드(React)에서 Maps JavaScript API (Web JS)의 인증(Auth)에 지속적으로 실패하는 기술적 한계에 부딪혔습니다. (브라우저 LatLngBounds 에러 발생) 이 문제를 해결하고 사용자에게 '지도'라는 핵심 시각화 기능을 제공하는 것이 당면 과제였습니다.</p>
+                    </div>
+                    <div>
+                        <h4 class="card-heading">아키텍처/설계</h4>
+                        <p class="body-text">React(프론트엔드)와 Python(FastAPI)(백엔드)를 분리한 REST API 아키텍처를 채택했습니다.<br><strong class="text-cyan-400">핵심 설계 변경:</strong> 프론트엔드의 Dynamic Map 인증 문제를 해결하기 위해, **Static Map (REST API)**으로 아키텍처를 '피벗(Pivot)'했습니다. 모든 API 호출은 Python 백엔드가 전담하며, '지도 생성'까지 백엔드에서 처리하도록 설계했습니다. 백엔드는 AI가 생성한 장소 목록을 Geocoding으로 좌표 변환 후, Static Map API를 호출하여 마커와 경로가 포함된 지도 '이미지'를 Base64로 생성해 React(&lt;img&gt; 태그)로 전달합니다.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="card-heading">문제 해결 로드맵 (1인 프로젝트)</h4>
+                    <p class="body-text mb-10">단순한 기능 구현을 넘어, 1인 개발자로서 3가지 핵심 기술적 난제를 진단하고 해결했습니다.</p>
+                    
+                    <div class="timeline-container">
+                        <div class="timeline-line"></div>
+                        
+                        <div class="timeline-item">
+                            <span class="timeline-step-label">STEP 1</span>
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-card">
+                                <h5 class="font-bold text-white text-lg mb-2">문제: Google AI `v1beta` 404 에러</h5>
+                                <p class="text-slate-300">API 호출 시, `gemini-1.0-pro` 모델을 찾을 수 없다는 고질적인 `v1beta` 에러가 발생했습니다.</p>
+                                <p class="mt-3 font-medium text-cyan-300">▶ 해결: **Python 3.13**의 호환성 문제로 규명, `py -3.11` 및 `venv` 환경을 재설정하여 해결했습니다.</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <span class="timeline-step-label">STEP 2</span>
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-card">
+                                <h5 class="font-bold text-white text-lg mb-2">문제: `gemini-pro` 무료 등급 호출 실패</h5>
+                                <p class="text-slate-300">환경 재설정 후에도 유료 모델 API 호출이 실패했습니다.</p>
+                                <p class="mt-3 font-medium text-cyan-300">▶ 해결: **`gemini-2.5-flash` (최신 무료 등급)** 모델을 사용하도록 디버깅하여 API 호출을 최종적으로 성공시켰습니다.</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item relative"> <span class="timeline-step-label">STEP 3</span>
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-card">
+                                <h5 class="font-bold text-white text-lg mb-2">문제: `Dynamic Map` (VPC) 인증 실패</h5>
+                                <p class="text-slate-300">백엔드(AI) 성공 후, 프론트엔드에서 `LatLngBounds` 에러가 발생하며 지도를 띄울 수 없었습니다.</p>
+                                <p class="mt-3 font-medium text-cyan-300">▶ 해결: 'VPC' 계정은 'Web JS' API를 쓸 수 없음을 규명, **`Static Map (Base64)` 방식으로 아키텍처를 '피벗'**하여 프로젝트를 완성시켰습니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                
+                <div>
+                    <h4 class="card-heading">핵심 기능 상세</h4>
+                    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h5 class="font-bold text-white text-lg mb-4">Gemini (`gemini-2.5-flash`) 기반 코스 생성</h5>
+                            <ul class="space-y-3">
+                                <li class="list-item">Google Gemini API (`gemini-2.5-flash`)를 활용하여 사용자의 (여행지, 기간, 테마) 입력에 맞는 여행 장소 목록을 생성합니다.</li>
+                                <li class="list-item">AI가 `JSON List` 형식으로만 응답하도록 강력한 프롬프트 엔지니어링을 적용했습니다.</li>
+                                <li class="list-item">`json.loads`를 통해 응답을 파싱하여 백엔드에서 안정적으로 데이터를 처리합니다.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-white text-lg mb-4">NCP 'VPC/REST API' 환경 지도 시각화</h5>
+                            <ul class="space-y-3">
+                                <li class="list-item">`Dynamic Map (Web JS)` 인증 실패 문제를 **Static Map (REST API)**으로 해결했습니다.</li>
+                                <li class="list-item">`Geocoding API`로 AI가 제안한 장소명을 위도/경도 좌표로 변환합니다.</li>
+                                <li class="list-item">획득한 좌표 목록을 `Static Map API` 명세에 맞춰 마커(markers)와 경로(path) 파라미터로 조합합니다.</li>
+                                <li class="list-item">Python `requests`와 인증 헤더를 사용해 `Static Map API`를 호출, 지도 '이미지'를 응답받습니다.</li>
+                                <li class="list-item">응답받은 이미지를 `Base64`로 인코딩하여, 프론트엔드 &lt;img&gt; 태그가 즉시 사용할 수 있는 텍스트로 변환하여 전달합니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="card-heading">결과 및 성과</h4>
+                    <ul class="mt-6 space-y-3">
+                        <li class="list-item">'VPC'라는 제한된 NCP 개발 환경의 한계를 `REST API` 우회 전략으로 극복하고 AI 여행 플래너의 핵심 기능(경로 시각화)을 '완성'.</li>
+                        <li class="list-item">"VErcel/Netlify 배포 완료 및 동료 10명 대상 정량/피드백 수집 완료."</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="card-heading">회고 (Lessons Learned)</h4>
+                    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h5 class="font-bold text-green-400 text-lg mb-4">배운 점 (What I Learned)</h5>
+                            <ul class="space-y-3">
+                                <li class="list-item">API 명세서의 '제공 방식'(REST vs. Web JS)과 '인증 환경'(VPC vs. Public)을 확인하는 것이 얼마나 중요한지 뼈저리게 배웠습니다.</li>
+                                <li class="list-item">Python 버전 호환성(`v1beta` 에러) 및 API 모델 등급(`gemini-2.5-flash`)이 실제 API 호출에 미치는 영향을 직접 디버깅하며 `venv`의 중요성을 깨달았습니다.</li>
+                                <li class="list-item">초기 기획(동적 지도)이 막혔을 때 포기하지 않고, `Static Map`이라는 대안 아키텍처로 '피벗'하는 문제 해결 과정을 경험했습니다.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-yellow-400 text-lg mb-4">개선점 (What's Next)</h5>
+                            <ul class="space-y-3">
+                                <li class="list-item">향후 NCP '공개(Public)' 포털 계정을 발급받아, `Dynamic Map (Web JS)`을 활용한 원본 기획(동적 지도)으로 고도화하고 싶습니다.</li>
+                                <li class="list-item">백엔드에서 매번 생성하는 `Base64` 이미지를 S3/R2 같은 클라우드 스토리지에 캐싱하여 성능을 최적화하고 싶습니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="gallery" class="text-center">
+            <h3 class="section-heading">관련 이미지</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <div class="card space-y-4">
+                    <h4 class="card-heading text-center">아키텍처 다이어그램</h4>
+                    <img src="httpsB://placehold.co/800x450/1e293b/22d3ee?text=Architecture+Diagram" 
+                         alt="아키텍처 다이어그램" 
+                         class="rounded-lg shadow-md w-full border border-slate-700">
+                    <p class="text-sm text-center text-slate-400">[사용자] → [React] → [FastAPI] → [Gemini & NCP APIs] → [Base64 이미지] → [React `<img>`]</p>
+                </div>
+
+                <div class="card space-y-4">
+                    <h4 class="card-heading text-center">핵심 기능 1: Gemini 응답 로그</h4>
+                    <img src="https://placehold.co/800x450/1e293b/22d3ee?text=Feature+1:+Gemini+Log" 
+                         alt="Gemini API 응답 로그" 
+                         class="rounded-lg shadow-md w-full border border-slate-700">
+                    <p class="text-sm text-center text-slate-400">(Gemini API가 `["해운대",...]` JSON 뱉는 백엔드 터미널 로그 캡처)</p>
+                </div>
+
+                <div class="card space-y-4 md:col-span-2">
+                    <h4 class="card-heading text-center">핵심 기능 2: Static Map 최종 결과물</h4>
+                    <img src="https://placehold.co/800x450/1e293b/22d3ee?text=Feature+2:+Static+Map+Image" 
+                         alt="Static Map API 결과물 이미지" 
+                         class="rounded-lg shadow-md w-full border border-slate-700">
+                    <p class="text-sm text-center text-slate-400">(백엔드가 `Static Map` API로 생성한 지도 이미지 `<img>` 태그 결과물)</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-transparent border-t border-slate-700/50">
+        <div class="container mx-auto max-w-6xl px-4 py-12 text-center text-slate-400 text-sm">
+            <p>&copy; 2025 황주석 (Juseok Hwang). All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('main section[id]');
+            const navLinks = document.querySelectorAll('#nav-links a');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active-nav');
+                        });
+                        
+                        const id = entry.target.getAttribute('id');
+                        const activeLink = document.querySelector(`#nav-links a[href="#${id}"]`);
+                        
+                        if (activeLink) {
+                            activeLink.classList.add('active-nav');
+                        }
+                    }
+                });
+            }, {
+                rootMargin: '-30% 0px -70% 0px', 
+                threshold: 0
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+
+</body>
+</html>

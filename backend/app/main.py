@@ -95,7 +95,7 @@ app = FastAPI(
 # 허용 오리진 (프로덕션/프리뷰/로컬)
 ALLOW_ORIGIN_REGEX = r"https://.*\.vercel\.app"
 origins = [
-    "https://planai-livid.vercel.app",
+    "https://aiplanai.vercel.app",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
 ]

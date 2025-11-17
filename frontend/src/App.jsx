@@ -10,7 +10,7 @@ import { Plane, Utensils, Coffee, MapPin, ShoppingCart, Sun, Hotel, Clock, Car }
 // 0. 백엔드 API 주소
 // ----------------------------------------------------
 // 백엔드(FastAPI)가 8000번 포트에서 실행 중이라고 가정
-const API_URL = 'http://127.0.0.1:8000/api/v1/plan';
+const API_URL = 'https://plan-ai-f9kt.onrender.com/plan-ai';
 
 // ----------------------------------------------------
 // 1. 백엔드로 보낼 JSON 데이터의 '초기 빈 껍데기'
@@ -486,7 +486,7 @@ function App() {
       // -------------------------------------------------
       // 진짜 백엔드 API로 formData를 전송 (POST 요청)
       // -------------------------------------------------
-      const response = await axios.post(API_URL, formData);
+      const response = await axios.post(API_URL, formData, { timeout: 60000 });
       
       console.log("--- 백엔드로부터 받은 응답 ---");
       console.log(response.data);

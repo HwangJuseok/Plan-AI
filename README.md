@@ -64,3 +64,11 @@ pip install -r requirements.txt
 
 # .env 파일 생성 후 GOOGLE_API_KEY 입력
 uvicorn app.main:app --reload
+```
+
+### Frontend (React)
+```bash
+cd frontend
+npm install
+npm run dev
+```

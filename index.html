@@ -1,399 +1,176 @@
 <!DOCTYPE html>
-<html lang="ko" class="scroll-smooth">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>황주석 포트폴리오 | 플랜-AI (Plan-AI)</title>
+    <title>황주석 | Plan-AI (Gemini Edition)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Noto Sans KR', 'Inter', 'system-ui', 'sans-serif'],
-                    },
-                    colors: {
-                        cyan: {
-                            300: '#67e8f9',
-                            400: '#22d3ee',
-                            500: '#06b6d4',
-                        },
-                        purple: {
-                            400: '#c084fc',
-                            500: '#a855f7',
-                        },
-                        slate: {
-                            700: '#334155',
-                            800: '#1e293b',
-                            900: '#0f172a',
-                            950: '#020617',
-                        }
-                    }
-                },
-            },
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        .active-nav {
-            @apply text-cyan-300 font-bold;
-        }
-
-        .section-heading {
-            @apply text-3xl font-bold text-white text-center mb-16 inline-block border-b-2 border-cyan-500 pb-3;
-        }
-
+        body { font-family: 'Noto Sans KR', sans-serif; }
         .card {
-            @apply bg-slate-900/60 backdrop-blur-md p-8 rounded-xl shadow-lg border border-slate-700/50 transition-transform duration-300 hover:scale-[1.01];
+            @apply bg-slate-900 p-8 rounded-3xl border border-slate-800 hover:border-slate-600 transition-all duration-300 shadow-xl;
         }
-
-        .card-heading {
-            @apply text-xl font-bold text-cyan-400 mb-6;
+        .highlight {
+            @apply text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 font-bold;
         }
-        .body-text {
-            @apply text-slate-300 text-base leading-loose;
-        }
-        .list-item {
-            @apply relative pl-6 text-slate-300 before:content-['\2713'] before:absolute before:left-0 before:text-cyan-400 before:font-bold;
-        }
-        
-        /* --- 타임라인 스타일 (수정됨) --- */
-        .timeline-container {
-            @apply relative max-w-2xl mx-auto pl-4 md:pl-[7rem]; 
-        }
-        .timeline-line {
-            @apply absolute left-[2rem] md:left-[6rem] top-0 h-full w-0.5 bg-slate-700;
-        }
-        .timeline-item {
-            @apply relative mb-12;
-        }
-        .timeline-step-label {
-            @apply hidden md:block absolute left-[-7rem] top-1 w-[6rem] pr-4 text-right text-sm text-slate-400 font-medium;
-        }
-        .timeline-dot {
-            @apply absolute left-[1.5rem] md:left-[5.5rem] top-1 w-5 h-5 bg-gradient-to-b from-cyan-300 to-purple-400 rounded-full border-4 border-slate-950 z-10; 
-            /* left 위치 수정: line 위치에 맞춤 */
-        }
-        .timeline-card {
-            @apply relative ml-12 md:ml-0 bg-slate-900/60 backdrop-blur-md p-6 rounded-lg shadow-lg border border-slate-700/50;
-        }
-        .timeline-card::before {
-            @apply content-[''] absolute top-4 -left-2 w-4 h-4 bg-slate-900/60 border-l border-b border-slate-700/50 rotate-45;
-        }
-        /* 모바일용 스텝 라벨 */
-        .mobile-step-label {
-            @apply block md:hidden text-cyan-400 text-xs font-bold mb-1;
-        }
+        /* 스크롤바 커스텀 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-200 font-sans antialiased relative isolate">
+<body class="bg-slate-950 text-slate-200 min-h-screen p-4 md:p-8 flex justify-center items-start">
 
-    <div class="absolute inset-0 -z-10 overflow-hidden">
-        <svg class="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 [mask-image:radial-gradient(closest-side,white,transparent)]" aria-hidden="true">
-            <ellipse cx="50%" cy="50%" rx="60%" ry="40%" fill="none" stroke="#22d3ee" stroke-width="0.5" transform="rotate(20 50 50)" />
-            <path d="M-100 0 L200 100" stroke="#a855f7" stroke-width="0.2" />
-        </svg>
-        <div class="absolute left-1/2 top-1/4 h-[40rem] w-[50rem] -translate-x-1/2 rounded-full bg-gradient-to-tr from-cyan-500/30 to-purple-500/30 blur-[120px] filter opacity-50"></div>
-    </div>
+    <div class="max-w-5xl w-full space-y-6">
 
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="card md:col-span-2 flex flex-col justify-center space-y-4">
+                <div class="flex items-center space-x-3 mb-2">
+                    <span class="px-3 py-1 bg-purple-900/30 text-purple-400 text-xs font-bold rounded-full border border-purple-800">AI-Native Project</span>
+                    <span class="text-slate-500 text-sm">2025 Portfolio</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black text-white leading-tight">
+                    안녕하세요,<br>
+                    <span class="highlight">황주석</span>입니다.
+                </h1>
+                <p class="text-slate-400 text-lg">
+                    단순한 챗봇을 넘어, <strong>'사용 가능한 서비스'</strong>를 만드는 개발자.<br>
+                    생성형 AI의 불확실한 텍스트를 <strong>정형화된 데이터</strong>로 변환하는 데 집중합니다.
+                </p>
+            </div>
 
-    <nav class="sticky top-0 bg-slate-950/80 backdrop-blur-lg z-50 border-b border-slate-700/50">
-        <div class="container mx-auto max-w-6xl px-4 py-5 flex justify-between items-center">
-            <h1 class="text-xl font-bold text-white tracking-tight">황주석 <span class="text-slate-500 font-normal">|</span> Plan-AI</h1>
-            <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-300" id="nav-links">
-                <a href="#about" id="nav-about" class="hover:text-cyan-300 transition-colors">소개</a>
-                <a href="#skills" id="nav-skills" class="hover:text-cyan-300 transition-colors">기술 스택</a>
-                <a href="#project" id="nav-project" class="hover:text-cyan-300 transition-colors">프로젝트</a>
-                <a href="#gallery" id="nav-gallery" class="hover:text-cyan-300 transition-colors">갤러리</a>
+            <div class="card flex flex-col justify-between bg-slate-900/50">
+                <div class="space-y-6">
+                    <div>
+                        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1">Email</p>
+                        <a href="mailto:hwangjs02@naver.com" class="text-white hover:text-cyan-400 transition-colors font-medium">hwangjs02@naver.com</a>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1">Github</p>
+                        <a href="https://github.com/HwangJuseok" target="_blank" class="text-white hover:text-purple-400 transition-colors font-medium">@HwangJuseok</a>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <a href="https://github.com/HwangJuseok/Plan-AI" target="_blank" class="block w-full py-3 bg-white text-slate-950 text-center font-bold rounded-xl hover:bg-cyan-300 transition-colors">
+                        Plan-AI 저장소 가기 ↗
+                    </a>
+                </div>
             </div>
         </div>
-    </nav>
 
-    <main class="container mx-auto max-w-6xl px-4 py-16 md:py-24 space-y-32">
-
-        <section id="about" class="flex flex-col items-center text-center space-y-10">
-            <div class="flex justify-center">
-                <div class="p-1 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full">
-                    <img src="https://placehold.co/256x256/1e293b/22d3ee?text=Juseok" 
-                         alt="황주석 프로필 이미지" 
-                         class="rounded-full w-40 h-40 md:w-56 md:h-56 object-cover border-4 border-slate-900 shadow-2xl">
-                </div>
-            </div>
-            <div class="space-y-6 max-w-3xl">
-                <h2 class="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-                    기술적 한계에 부딪혔을 때<br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-400">
-                        대안을 찾아 돌파하는 개발자
-                    </span>
-                    황주석입니다.
-                </h2>
-                <div class="flex flex-wrap gap-4 pt-2 justify-center text-slate-400">
-                    <a href="mailto:hwangjs02@naver.com" class="flex items-center space-x-2 text-sm font-medium hover:text-cyan-300 transition-colors px-4 py-2 bg-slate-900/50 rounded-full border border-slate-800">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg>
-                        <span>hwangjs02@naver.com</span>
-                    </a>
-                    <a href="https://github.com/HwangJuseok" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 text-sm font-medium hover:text-cyan-300 transition-colors px-4 py-2 bg-slate-900/50 rounded-full border border-slate-800">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 0C4.477 0 0 4.477 0 10c0 4.418 2.865 8.166 6.839 9.49.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.157-1.11-1.465-1.11-1.465-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.949 0-1.09.39-1.984 1.03-2.685-.103-.253-.446-1.272.098-2.649 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.336 1.909-1.296 2.747-1.026 2.747-1.026.546 1.377.202 2.396.1 2.649.64.701 1.03 1.595 1.03 2.685 0 3.848-2.339 4.693-4.566 4.942.359.309.678.92.678 1.854 0 1.338-.012 2.419-.012 2.746 0 .268.18.58.688.482A10.001 10.001 0 0020 10c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
-                        <span>GitHub Profile</span>
-                    </a>
-                </div>
-                <div class="body-text space-y-4 pt-6 text-left md:text-center border-t border-slate-800/50 mt-8">
-                    <p>사용자의 아이디어를 기술로 구현하는 과정, 특히 <strong>React</strong>와 <strong>Python(FastAPI)</strong>을 활용한 풀스택 서비스 구축에 매력을 느낍니다.</p>
-                    <p>최근 진행한 <strong>'플랜-AI'</strong> 프로젝트에서는 생성형 AI(Gemini)와 지도 API 연동 중 발생한 <strong>NCP VPC 환경의 인증 문제</strong>를 직면했습니다. 프론트엔드에서 동적 지도를 띄울 수 없는 상황이었지만, 포기하지 않고 <strong>백엔드 기반 Static Map 생성</strong>이라는 아키텍처 피벗(Pivot)을 통해 문제를 해결했습니다.</p>
-                    <p class="font-medium text-slate-100">
-                        "길이 막혔을 때 멈추는 것이 아니라, 새로운 길을 개척하는 것"이 저의 핵심 역량입니다.
+        <div class="card relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-purple-900/20">
+            <h2 class="text-2xl font-bold text-white mb-6">PROJECT: <span class="text-purple-400">Plan-AI</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-sm font-bold text-slate-500 uppercase mb-2">Service Definition</h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        사용자의 여행 취향(기간, 테마, 누구와 함께)을 입력받아, <strong class="text-white">Gemini AI가 상세 여행 계획표를 생성해주는 웹 서비스</strong>입니다.<br>
+                        단순 텍스트 나열이 아닌, 날짜별/시간대별로 정리된 스케줄 UI를 제공합니다.
                     </p>
                 </div>
-            </div>
-        </section>
-
-        <section id="skills" class="text-center">
-            <h3 class="text-3xl font-bold text-center mb-16 inline-block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-400 pb-3 border-b-2 border-cyan-500">
-                기술 스택 (Skills)
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <div class="card text-left">
-                    <h4 class="text-white text-2xl font-bold mb-6 flex items-center gap-2">
-                        <span class="w-2 h-8 bg-blue-500 rounded-full"></span> Frontend
-                    </h4>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="skill-tag bg-blue-400/10 text-blue-200 border-blue-400/30">React</span>
-                        <span class="skill-tag bg-teal-600/10 text-teal-300 border-teal-600/30">Tailwind CSS</span>
-                        <span class="skill-tag bg-yellow-600/10 text-yellow-300 border-yellow-600/30">JavaScript (ES6+)</span>
-                        <span class="skill-tag bg-blue-600/10 text-blue-300 border-blue-600/30">HTML5</span>
-                    </div>
-                </div>
-                
-                <div class="card text-left">
-                    <h4 class="text-white text-2xl font-bold mb-6 flex items-center gap-2">
-                        <span class="w-2 h-8 bg-green-500 rounded-full"></span> Backend
-                    </h4>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="skill-tag bg-green-600/10 text-green-300 border-green-600/30">Python 3.11+</span>
-                        <span class="skill-tag bg-purple-600/10 text-purple-300 border-purple-600/30">FastAPI</span>
-                        <span class="skill-tag bg-slate-600/10 text-slate-300 border-slate-600/30">Uvicorn</span>
-                        <span class="skill-tag bg-pink-600/10 text-pink-300 border-pink-600/30">Pydantic</span>
-                    </div>
-                </div>
-                
-                <div class="card text-left">
-                    <h4 class="text-white text-2xl font-bold mb-6 flex items-center gap-2">
-                        <span class="w-2 h-8 bg-purple-500 rounded-full"></span> API & Tools
-                    </h4>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="skill-tag bg-indigo-600/10 text-indigo-300 border-indigo-600/30">Gemini 2.5 Flash</span>
-                        <span class="skill-tag bg-blue-700/10 text-blue-300 border-blue-700/30">Naver Maps (Geocoding/Static)</span>
-                        <span class="skill-tag bg-orange-600/10 text-orange-300 border-orange-600/30">Git / GitHub</span>
-                        <span class="skill-tag bg-gray-600/10 text-gray-300 border-gray-600/30">VS Code</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="project" class="text-center">
-            <h3 class="section-heading">Project: Plan-AI</h3>
-            <p class="text-slate-400 mb-8 -mt-10">생성형 AI 기반 맞춤형 여행 코스 추천 및 시각화 서비스</p>
-            
-            <div class="mb-12 relative group cursor-pointer">
-                <div class="absolute inset-0 bg-cyan-500/10 blur-xl group-hover:bg-cyan-500/20 transition-all duration-500"></div>
-                <img src="https://placehold.co/1200x600/1e293b/22d3ee?text=Plan-AI+Project+Screenshot" 
-                     alt="플랜-AI 메인 이미지" 
-                     class="relative rounded-xl shadow-2xl w-full object-cover border border-slate-700/50 group-hover:scale-[1.01] transition-transform duration-500">
-            </div>
-
-            <div class="flex justify-center mb-16">
-                <a href="https://github.com/HwangJuseok/Plan-AI/" target="_blank" class="inline-flex items-center gap-2 px-8 py-3 bg-slate-100 text-slate-900 font-bold rounded-full hover:bg-cyan-300 transition-colors shadow-[0_0_20px_rgba(34,211,238,0.3)]">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.089 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
-                    GitHub 리포지토리 보러가기
-                </a>
-            </div>
-
-            <div class="card space-y-16 text-left">
-                
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 border-b border-slate-800 pb-10">
-                    <div>
-                        <h4 class="card-heading text-red-400">🔥 문제 정의 (Problem)</h4>
-                        <p class="body-text">
-                            사용자에게 여행 코스를 '지도' 위에 시각화해야 했으나, 개발에 사용된 NCP 계정이 <strong>'VPC (금융/공공 전용)' 환경</strong>이었습니다. <br>
-                            이로 인해 React 프론트엔드에서 일반적으로 사용하는 <code class="bg-slate-800 px-1 py-0.5 rounded text-sm text-cyan-300">Web Dynamic Map JS</code> 호출 시 인증 에러(LatLngBounds Error)가 발생하여, 지도를 렌더링할 수 없는 치명적인 이슈가 발생했습니다.
-                        </p>
-                    </div>
-                    <div>
-                        <h4 class="card-heading text-green-400">💡 해결 전략 (Solution)</h4>
-                        <p class="body-text">
-                            VPC 환경에서도 사용 가능한 <strong>Static Map (REST API)</strong>으로 기술 스택을 전환했습니다.
-                            <br>
-                            <strong class="text-cyan-300">Backend Driven Rendering:</strong> 프론트엔드가 아닌 Python 백엔드에서 지도 이미지를 생성하도록 설계했습니다. AI가 생성한 경로를 백엔드에서 <code class="bg-slate-800 px-1 py-0.5 rounded text-sm text-cyan-300">Base64</code> 이미지로 변환하여 프론트엔드로 전송함으로써 환경적 제약을 기술적으로 극복했습니다.
-                        </p>
-                    </div>
-                </div>
-
                 <div>
-                    <h4 class="card-heading mb-10">🚀 트러블 슈팅 로드맵 (Development Log)</h4>
-                    
-                    <div class="timeline-container">
-                        <div class="timeline-line"></div>
-                        
-                        <div class="timeline-item">
-                            <span class="timeline-step-label">STEP 01</span>
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-card">
-                                <span class="mobile-step-label">STEP 01</span>
-                                <h5 class="font-bold text-white text-lg mb-2">Google AI `v1beta` 호환성 이슈</h5>
-                                <p class="text-slate-300 text-sm mb-2">Gemini API 호출 시 모델을 찾을 수 없는 404 에러 발생</p>
-                                <p class="text-cyan-300 text-sm font-medium border-t border-slate-700 pt-2 mt-2">
-                                    ▶ Python 3.13과 라이브러리 호환성 문제 확인. `py -3.11` 및 venv 환경 재구축으로 해결.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <span class="timeline-step-label">STEP 02</span>
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-card">
-                                <span class="mobile-step-label">STEP 02</span>
-                                <h5 class="font-bold text-white text-lg mb-2">무료 등급 할당량 문제</h5>
-                                <p class="text-slate-300 text-sm mb-2">기존 `gemini-pro` 모델 호출 실패</p>
-                                <p class="text-cyan-300 text-sm font-medium border-t border-slate-700 pt-2 mt-2">
-                                    ▶ 최신 무료 등급 모델인 `gemini-2.5-flash`로 마이그레이션하여 안정적인 API 호출 성공.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <span class="timeline-step-label">STEP 03</span>
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-card border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-                                <span class="mobile-step-label">STEP 03 (핵심)</span>
-                                <h5 class="font-bold text-cyan-300 text-lg mb-2">NCP VPC 환경 지도 렌더링 불가</h5>
-                                <p class="text-slate-300 text-sm mb-2">Web JS API 인증 실패로 지도 서비스 불능 위기</p>
-                                <p class="text-white text-sm font-medium bg-cyan-900/30 p-2 rounded mt-2 border border-cyan-500/30">
-                                    ▶ <strong>Static Map (REST API)</strong> 방식으로 아키텍처 피벗.<br>
-                                    백엔드에서 좌표 변환 및 이미지 생성 후 Base64로 전달하여 구현 완료.
-                                </p>
-                            </div>
-                        </div>
-
+                    <h3 class="text-sm font-bold text-slate-500 uppercase mb-2">Tech Stack</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-900/30 text-blue-300 text-xs font-bold rounded border border-blue-800">React</span>
+                        <span class="px-3 py-1 bg-yellow-900/30 text-yellow-300 text-xs font-bold rounded border border-yellow-800">JavaScript</span>
+                        <span class="px-3 py-1 bg-green-900/30 text-green-300 text-xs font-bold rounded border border-green-800">FastAPI</span>
+                        <span class="px-3 py-1 bg-purple-900/30 text-purple-300 text-xs font-bold rounded border border-purple-800">Gemini 2.5 Flash</span>
                     </div>
-                </div>
-                
-                <div>
-                    <h4 class="card-heading">🛠️ 핵심 구현 상세 (Implementation)</h4>
-                    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="bg-slate-950/50 p-6 rounded-lg border border-slate-800">
-                            <h5 class="font-bold text-white text-lg mb-4 flex items-center gap-2">
-                                🤖 Gemini Prompt Engineering
-                            </h5>
-                            <ul class="space-y-3 text-sm text-slate-300">
-                                <li class="list-item">사용자 입력(장소, 기간, 테마) 기반 맞춤형 코스 생성</li>
-                                <li class="list-item"><strong>Strict JSON Output:</strong> AI가 불필요한 서술 없이 파싱 가능한 JSON 리스트만 반환하도록 프롬프트 최적화</li>
-                                <li class="list-item">Python `json.loads`를 통한 데이터 구조화 및 예외 처리</li>
-                            </ul>
-                        </div>
-                        <div class="bg-slate-950/50 p-6 rounded-lg border border-slate-800">
-                            <h5 class="font-bold text-white text-lg mb-4 flex items-center gap-2">
-                                🗺️ NCP Geocoding & Static Map
-                            </h5>
-                            <ul class="space-y-3 text-sm text-slate-300">
-                                <li class="list-item">장소명 → 위도/경도(Geocoding) 좌표 변환 파이프라인 구축</li>
-                                <li class="list-item">Static Map API 요청 시 마커(Markers)와 경로(Path) 파라미터 동적 생성</li>
-                                <li class="list-item"><strong>Base64 Encoding:</strong> 이미지 바이너리 데이터를 텍스트로 변환하여 프론트엔드 `img` 태그에 즉시 바인딩</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="card-heading">📝 회고 (Lessons Learned)</h4>
-                    <div class="mt-6 p-6 bg-gradient-to-r from-slate-900 to-slate-800 rounded-lg border border-slate-700">
-                        <p class="body-text italic text-slate-300">
-                            "API 명세서의 <strong>'지원 환경(VPC vs Public)'</strong>을 사전에 확인하는 것이 얼마나 중요한지 깨달았습니다. 초기 기획(동적 지도)이 막혔을 때, 프로젝트를 엎는 것이 아니라 <strong>'정적 지도 이미지 전송'</strong>이라는 대체 기술을 찾아내어 끝까지 완주해낸 경험이 가장 큰 자산이 되었습니다."
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="gallery" class="text-center pb-20">
-            <h3 class="section-heading">Project Gallery</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                
-                <div class="card space-y-4">
-                    <h4 class="card-heading text-center text-base">System Architecture</h4>
-                    <img src="https://placehold.co/800x450/1e293b/22d3ee?text=Architecture+Diagram" 
-                         alt="아키텍처 다이어그램" 
-                         class="rounded-lg shadow-md w-full border border-slate-700 hover:opacity-90 transition-opacity">
-                    <p class="text-xs text-center text-slate-500 font-mono">[React] ↔ [FastAPI] ↔ [Gemini & NCP]</p>
-                </div>
-
-                <div class="card space-y-4">
-                    <h4 class="card-heading text-center text-base">Backend Logs (JSON Parsing)</h4>
-                    <img src="https://placehold.co/800x450/1e293b/22d3ee?text=Gemini+Response+Log" 
-                         alt="Gemini API 응답 로그" 
-                         class="rounded-lg shadow-md w-full border border-slate-700 hover:opacity-90 transition-opacity">
-                    <p class="text-xs text-center text-slate-500">Gemini가 생성한 여행지 JSON 데이터 파싱 과정</p>
-                </div>
-
-                <div class="card space-y-4 md:col-span-2">
-                    <h4 class="card-heading text-center text-base">Final Result: AI Generated Course Map</h4>
-                    <img src="https://placehold.co/1200x600/1e293b/22d3ee?text=Static+Map+Final+Result" 
-                         alt="Static Map API 결과물 이미지" 
-                         class="rounded-lg shadow-md w-full border border-slate-700 hover:opacity-90 transition-opacity">
-                    <p class="text-xs text-center text-slate-500">FastAPI가 생성하여 프론트엔드로 전달한 Base64 지도 이미지</p>
                 </div>
             </div>
-        </section>
-
-    </main>
-
-    <footer class="bg-slate-950 border-t border-slate-800">
-        <div class="container mx-auto max-w-6xl px-4 py-12 text-center text-slate-500 text-sm">
-            <p>&copy; 2025 Juseok Hwang. Built with HTML, Tailwind CSS.</p>
         </div>
-    </footer>
 
-    <script>
-        // 스크롤 시 네비게이션 활성화 로직
-        document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('main section[id]');
-            const navLinks = document.querySelectorAll('#nav-links a');
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="card bg-red-950/10 border-red-900/30 hover:border-red-500/50">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-2 bg-red-500/10 rounded-lg text-red-500">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-red-400">Problem: Unstructured Data</h3>
+                </div>
+                <p class="text-slate-300 leading-relaxed">
+                    생성형 AI(LLM)는 기본적으로 사람이 읽기 좋은 '줄글(Text)'을 반환합니다.<br>
+                    하지만 웹 프론트엔드에서 예쁜 카드나 리스트 형태로 보여주기 위해서는 <strong>정형화된 JSON 데이터</strong>가 필수적이었습니다.
+                    <br><br>
+                    <span class="text-red-300 text-sm">"AI가 줄바꿈이나 특수문자를 멋대로 섞어서 보내면, UI가 깨지거나 에러가 발생함."</span>
+                </p>
+            </div>
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        navLinks.forEach(link => {
-                            link.classList.remove('active-nav');
-                        });
-                        
-                        const id = entry.target.getAttribute('id');
-                        const activeLink = document.querySelector(`#nav-links a[href="#${id}"]`);
-                        
-                        if (activeLink) {
-                            activeLink.classList.add('active-nav');
-                        }
-                    }
-                });
-            }, {
-                rootMargin: '-20% 0px -70% 0px', 
-                threshold: 0
-            });
+            <div class="card bg-green-950/10 border-green-900/30 hover:border-green-500/50">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-2 bg-green-500/10 rounded-lg text-green-500">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-green-400">Solution: Prompt Engineering</h3>
+                </div>
+                <p class="text-slate-300 leading-relaxed">
+                    AI에게 단순 요청이 아닌, <strong>엄격한 데이터 스키마(System Prompt)</strong>를 부여했습니다.<br>
+                    <br>
+                    1. <strong>Strict JSON Output:</strong> 오직 JSON List 형식만 반환하도록 강제.<br>
+                    2. <strong>Backend Validation:</strong> FastAPI에서 `json.loads` 및 예외 처리 로직을 통해 데이터 무결성을 검증 후 프론트엔드로 전달.
+                </p>
+            </div>
+        </div>
 
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-        });
-        
-        // 스킬 태그 스타일 공통화
-        document.querySelectorAll('.skill-tag').forEach(tag => {
-            tag.className += ' inline-block px-4 py-1.5 rounded-full text-sm font-semibold border transition-transform duration-200 hover:scale-105 cursor-default';
-        });
-    </script>
+        <div class="card">
+            <h3 class="text-xl font-bold text-white mb-8 border-b border-slate-800 pb-4">🚩 Development Roadmap</h3>
+            
+            <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-slate-800 before:content-['']">
+                
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-slate-900 bg-slate-700 group-hover:bg-purple-500 transition shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-xs font-bold">1</div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-slate-950 p-4 rounded-xl border border-slate-800 shadow-sm">
+                        <div class="text-purple-400 font-bold text-sm mb-1">Setup</div>
+                        <div class="text-white font-bold mb-1">Gemini API 연동</div>
+                        <div class="text-slate-400 text-sm">Python 환경 구축 및 `gemini-2.5-flash` 모델 연결 성공</div>
+                    </div>
+                </div>
+
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-slate-900 bg-purple-600 shadow-[0_0_15px_rgba(168,85,247,0.5)] shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-xs font-bold text-white">2</div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-slate-800 p-4 rounded-xl border border-purple-500/50 shadow-md">
+                        <div class="text-purple-300 font-bold text-sm mb-1">Core Engineering</div>
+                        <div class="text-white font-bold mb-1">Prompt Engineering</div>
+                        <div class="text-slate-300 text-sm">AI 응답을 줄글이 아닌 <strong>JSON 포맷</strong>으로 강제하여 파싱 오류 해결</div>
+                    </div>
+                </div>
+
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-slate-900 bg-slate-700 group-hover:bg-purple-500 transition shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-xs font-bold">3</div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-slate-950 p-4 rounded-xl border border-slate-800 shadow-sm">
+                        <div class="text-purple-400 font-bold text-sm mb-1">Frontend</div>
+                        <div class="text-white font-bold mb-1">React UI Rendering</div>
+                        <div class="text-slate-400 text-sm">백엔드에서 받은 JSON 데이터를 기반으로 여행 일정 카드 동적 렌더링</div>
+                    </div>
+                </div>
+
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-slate-900 bg-slate-700 group-hover:bg-purple-500 transition shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-xs font-bold">4</div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-slate-950 p-4 rounded-xl border border-slate-800 shadow-sm">
+                        <div class="text-purple-400 font-bold text-sm mb-1">Final</div>
+                        <div class="text-white font-bold mb-1">Deploy</div>
+                        <div class="text-slate-400 text-sm">Vercel 배포 및 최종 테스트 완료</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card bg-gradient-to-br from-slate-900 to-slate-800 border-t-4 border-t-purple-500 text-center">
+            <h3 class="text-lg font-bold text-white mb-4">Lessons Learned</h3>
+            <p class="text-slate-300 max-w-2xl mx-auto leading-relaxed italic">
+                "API를 연결하는 것보다 중요한 것은 <strong>'데이터를 다루는 능력'</strong>이었습니다.<br>
+                AI가 뱉어내는 비정형 텍스트를 서비스에 맞는 형태로 가공하는 과정에서,<br>
+                <span class="text-white not-italic font-bold">프롬프트 엔지니어링이 단순한 질문이 아니라 일종의 '코딩'임을 깨달았습니다.</span>"
+            </p>
+            <div class="mt-8 pt-8 border-t border-slate-700/50 text-slate-500 text-sm">
+                &copy; 2025 Hwang Juseok. All rights reserved.
+            </div>
+        </div>
+
+    </div>
 
 </body>
 </html>

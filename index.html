@@ -6,6 +6,7 @@
     <title>황주석 | Plan-AI Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body { font-family: 'Pretendard', sans-serif; }
         
@@ -19,9 +20,14 @@
             @apply text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-pink-300;
         }
 
-        /* 둥근 스킬 배지 */
+        /* 스킬 배지 */
         .skill-badge {
             @apply px-4 py-2 text-xs font-bold rounded-full border bg-opacity-10 backdrop-blur-md transition-transform hover:scale-105 cursor-default flex items-center gap-1.5;
+        }
+
+        /* 상태 배지 (헤더용) */
+        .status-pill {
+            @apply px-3 py-1.5 text-[11px] font-bold rounded-full border tracking-wide uppercase flex items-center gap-1.5;
         }
 
         /* 배경 글로우 효과 */
@@ -35,7 +41,7 @@
             pointer-events: none;
         }
 
-        /* 스크롤바 숨기기 (깔끔함을 위해) */
+        /* 스크롤바 숨기기 */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
@@ -52,9 +58,12 @@
             <div class="glass-card lg:col-span-2 flex flex-col justify-center space-y-6 relative overflow-hidden group">
                 <div class="absolute -right-20 -top-20 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/30 transition-all duration-700"></div>
 
-                <div class="flex items-center space-x-3 z-10">
-                    <span class="px-3 py-1 bg-purple-500/20 text-purple-300 text-[11px] font-bold rounded-full border border-purple-500/30 tracking-wide uppercase">Updated Dec 2025</span>
-                    <span class="px-3 py-1 bg-cyan-500/20 text-cyan-300 text-[11px] font-bold rounded-full border border-cyan-500/30 tracking-wide uppercase">CSE Major</span>
+                <div class="flex flex-wrap items-center gap-2 z-10">
+                    <span class="status-pill bg-green-500/20 text-green-300 border-green-500/30">
+                        <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span> MVP Completed
+                    </span>
+                    <span class="status-pill bg-blue-500/20 text-blue-300 border-blue-500/30">Full-Stack</span>
+                    <span class="status-pill bg-orange-500/20 text-orange-300 border-orange-500/30">Gemini Flash API</span>
                 </div>
                 
                 <h1 class="text-4xl md:text-6xl font-black text-white leading-tight tracking-tight z-10">
@@ -63,8 +72,8 @@
                 </h1>
                 
                 <p class="text-slate-400 text-lg leading-relaxed max-w-xl z-10">
-                    단순한 챗봇을 넘어, <strong>'사용자가 쓰기 편한 서비스'</strong>를 만듭니다.<br>
-                    AI의 답변을 정교하게 제어하고, <span class="text-purple-300 font-semibold decoration-purple-500/30 underline-offset-4 underline">직관적인 UI</span>로 시각화하는 과정에 몰입해 있습니다.
+                    단순한 챗봇을 넘어, <strong>'실제 사용 가능한 서비스'</strong>를 구축합니다.<br>
+                    <span class="text-purple-300 font-semibold">10가지 상세 요구사항</span>을 분석해 완벽한 여행 계획을 제안하는 <strong>Plan-AI</strong>를 개발했습니다.
                 </p>
             </div>
 
@@ -72,16 +81,14 @@
                 <div class="space-y-6">
                     <div>
                         <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mb-2">Email</p>
-                        <a href="mailto:hwangjs02@naver.com" class="text-white hover:text-cyan-400 transition-colors font-medium break-all flex items-center gap-2 group">
+                        <a href="mailto:hwangjs02@naver.com" class="text-white hover:text-cyan-400 transition-colors font-medium flex items-center gap-2 group">
                             hwangjs02@naver.com
-                            <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
                     </div>
                     <div>
                         <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mb-2">Github</p>
                         <a href="https://github.com/HwangJuseok" target="_blank" class="text-white hover:text-purple-400 transition-colors font-medium flex items-center gap-2 group">
                             @HwangJuseok
-                            <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
                     </div>
                 </div>
@@ -105,8 +112,8 @@
                     <h2 class="text-4xl md:text-5xl font-black text-white">Plan-AI</h2>
                 </div>
                 <p class="text-slate-400 mt-4 md:mt-0 text-right md:max-w-md text-sm md:text-base">
-                    Gemini AI와 Naver Maps API를 활용한<br>
-                    <span class="text-slate-200">초개인화 여행 일정 생성 서비스</span>
+                    AI 기반 맞춤형 여행 계획 생성 서비스<br>
+                    <span class="text-slate-200">AI 응답 구조화 및 시각화 프로젝트</span>
                 </p>
             </div>
             
@@ -115,12 +122,24 @@
                     <div>
                         <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
                             <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
-                            Service Definition
+                            Core Goals
                         </h3>
-                        <p class="text-slate-300 leading-relaxed bg-black/20 p-6 rounded-3xl border border-white/5">
-                            사용자의 여행 취향(기간, 테마, 인원 등)을 입력하면, <strong class="text-cyan-300">Gemini AI가 최적화된 여행 계획</strong>을 제안합니다.<br><br>
-                            단순 텍스트가 아닌, 사용자가 보기 편한 <strong>카드 뉴스 형태의 타임라인 UI</strong>로 변환하여 시각적인 즐거움을 제공합니다.
-                        </p>
+                        <div class="bg-black/20 p-6 rounded-[2rem] border border-white/5 space-y-4">
+                            <p class="text-slate-300 leading-relaxed">
+                                <strong class="text-white block mb-1">1. AI 출력 정형화</strong>
+                                자연어 요청을 오류 없이 <span class="text-cyan-300">Pydantic Schema</span>에 맞는 JSON으로 완벽하게 변환합니다.
+                            </p>
+                            <div class="w-full h-px bg-white/10"></div>
+                            <p class="text-slate-300 leading-relaxed">
+                                <strong class="text-white block mb-1">2. Full-Stack Flow</strong>
+                                [입력 폼 ➔ API 호출 ➔ AI 검증 ➔ UI 시각화]의 전 과정을 구축했습니다.
+                            </p>
+                            <div class="w-full h-px bg-white/10"></div>
+                            <p class="text-slate-300 leading-relaxed">
+                                <strong class="text-white block mb-1">3. UX Optimization</strong>
+                                복잡한 JSON 데이터를 모바일 친화적인 <span class="text-purple-300">카드형 일정표</span>로 제공합니다.
+                            </p>
+                        </div>
                     </div>
                 </div>
 
@@ -131,31 +150,32 @@
                     </h3>
                     
                     <div class="space-y-6">
-                        <div class="bg-slate-900/40 p-5 rounded-3xl border border-white/5">
+                        <div class="bg-slate-900/40 p-5 rounded-[2rem] border border-white/5">
                             <span class="text-xs text-cyan-400 font-bold mb-3 block uppercase tracking-wider ml-1">Frontend</span>
                             <div class="flex flex-wrap gap-2">
-                                <span class="skill-badge text-blue-300 border-blue-500/30 bg-blue-500/10">React</span>
-                                <span class="skill-badge text-yellow-200 border-yellow-500/30 bg-yellow-500/10">JavaScript (ES6+)</span>
-                                <span class="skill-badge text-cyan-200 border-cyan-500/30 bg-cyan-500/10">Tailwind CSS</span>
+                                <span class="skill-badge text-blue-300 border-blue-500/30 bg-blue-500/10">React (Vite)</span>
+                                <span class="skill-badge text-yellow-200 border-yellow-500/30 bg-yellow-500/10">Axios</span>
+                                <span class="skill-badge text-cyan-200 border-cyan-500/30 bg-cyan-500/10">Lucide-React</span>
+                                <span class="skill-badge text-slate-300 border-slate-500/30 bg-slate-500/10">Multi-Step Form</span>
                             </div>
                         </div>
 
-                        <div class="bg-slate-900/40 p-5 rounded-3xl border border-white/5">
+                        <div class="bg-slate-900/40 p-5 rounded-[2rem] border border-white/5">
                             <span class="text-xs text-green-400 font-bold mb-3 block uppercase tracking-wider ml-1">Backend</span>
                             <div class="flex flex-wrap gap-2">
                                 <span class="skill-badge text-green-300 border-green-500/30 bg-green-500/10">Python 3.11</span>
                                 <span class="skill-badge text-emerald-300 border-emerald-500/30 bg-emerald-500/10">FastAPI</span>
-                                <span class="skill-badge text-slate-300 border-slate-500/30 bg-slate-500/10">Uvicorn</span>
                                 <span class="skill-badge text-pink-300 border-pink-500/30 bg-pink-500/10">Pydantic</span>
+                                <span class="skill-badge text-white border-white/30 bg-white/10">Dotenv</span>
                             </div>
                         </div>
 
-                        <div class="bg-slate-900/40 p-5 rounded-3xl border border-white/5">
-                            <span class="text-xs text-purple-400 font-bold mb-3 block uppercase tracking-wider ml-1">AI & DevOps</span>
+                        <div class="bg-slate-900/40 p-5 rounded-[2rem] border border-white/5">
+                            <span class="text-xs text-purple-400 font-bold mb-3 block uppercase tracking-wider ml-1">AI & Prompting</span>
                             <div class="flex flex-wrap gap-2">
-                                <span class="skill-badge text-purple-300 border-purple-500/30 bg-purple-500/10">Gemini 2.5 Flash API</span>
-                                <span class="skill-badge text-white border-white/30 bg-white/10">Vercel</span>
-                                <span class="skill-badge text-slate-300 border-slate-500/30 bg-slate-500/10">Git / GitHub</span>
+                                <span class="skill-badge text-purple-300 border-purple-500/30 bg-purple-500/10">Gemini Flash API</span>
+                                <span class="skill-badge text-indigo-300 border-indigo-500/30 bg-indigo-500/10">Chain-of-Thought</span>
+                                <span class="skill-badge text-white border-slate-500/30 bg-slate-500/10">Prompt Engineering</span>
                             </div>
                         </div>
                     </div>
@@ -163,97 +183,95 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="glass-card bg-red-500/[0.03] border-red-500/10 hover:border-red-500/30 group">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="p-3 bg-red-500/10 rounded-2xl text-red-400 shadow-inner shadow-red-500/20 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        <div class="space-y-6">
+            <h3 class="text-2xl font-bold text-white px-2">🛠️ Troubleshooting & Technical Challenges</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-card bg-red-500/[0.02] border-red-500/10 hover:border-red-500/30 group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="p-2.5 bg-red-500/10 rounded-2xl text-red-400 shadow-inner shadow-red-500/20">
+                            <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <span class="text-red-400 font-bold text-xs tracking-wider block">ISSUE 01</span>
+                            <h4 class="text-lg font-bold text-white">AI JSON Validation Error</h4>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-red-200">Problem</h3>
+                    <p class="text-slate-400 text-sm mb-4">
+                        AI가 스키마에 정의되지 않은 필드(예: <code>plan_name</code> vs <code>trip_title</code>)를 생성하여 Pydantic 검증 실패가 빈번히 발생함.
+                    </p>
+                    <div class="bg-slate-900/50 p-4 rounded-2xl border border-white/5">
+                        <span class="text-green-400 text-xs font-bold block mb-2">✅ SOLUTION</span>
+                        <ul class="text-slate-300 text-sm list-disc list-inside space-y-1">
+                            <li><strong class="text-white">모델 확장:</strong> <code>Literal</code> 타입을 추가하여 규칙 유연성 확보</li>
+                            <li><strong class="text-white">프롬프트 강화 (CoT):</strong> "이전 응답은 틀렸다"는 피드백 루프와 정확한 필드명을 강제하는 프롬프트 엔지니어링 적용</li>
+                        </ul>
+                    </div>
                 </div>
-                <p class="text-slate-300 leading-relaxed">
-                    생성형 AI는 기본적으로 줄글(Text)을 반환합니다. 이로 인해 <span class="text-red-300 font-semibold">데이터 형식이 매번 달라져</span> 프론트엔드 UI가 깨지는 치명적인 문제가 있었습니다.
-                </p>
-            </div>
 
-            <div class="glass-card bg-green-500/[0.03] border-green-500/10 hover:border-green-500/30 group">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="p-3 bg-green-500/10 rounded-2xl text-green-400 shadow-inner shadow-green-500/20 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <div class="glass-card bg-orange-500/[0.02] border-orange-500/10 hover:border-orange-500/30 group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="p-2.5 bg-orange-500/10 rounded-2xl text-orange-400 shadow-inner shadow-orange-500/20">
+                            <i data-lucide="globe" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <span class="text-orange-400 font-bold text-xs tracking-wider block">ISSUE 02</span>
+                            <h4 class="text-lg font-bold text-white">Cross-Origin (CORS / 405)</h4>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-green-200">Solution</h3>
+                    <p class="text-slate-400 text-sm mb-4">
+                        React 개발 서버(5173)에서 FastAPI(8000)로 요청 시 <code>405 Method Not Allowed</code> 에러 발생 및 통신 불가.
+                    </p>
+                    <div class="bg-slate-900/50 p-4 rounded-2xl border border-white/5">
+                        <span class="text-green-400 text-xs font-bold block mb-2">✅ SOLUTION</span>
+                        <ul class="text-slate-300 text-sm list-disc list-inside space-y-1">
+                            <li>FastAPI의 <strong class="text-white">CORSMiddleware</strong> 적용</li>
+                            <li><code>allow_origins</code>에 로컬호스트 명시적 허용</li>
+                            <li><code>OPTIONS</code> 메서드 처리를 위해 <code>allow_methods=["*"]</code> 설정</li>
+                        </ul>
+                    </div>
                 </div>
-                <p class="text-slate-300 leading-relaxed">
-                    <strong class="text-green-300">시스템 프롬프트</strong>로 JSON 스키마를 강제하고, FastAPI의 Pydantic 모델을 통해 <span class="text-green-300 font-semibold">데이터 무결성을 2차 검증</span>하여 렌더링 오류를 100% 차단했습니다.
-                </p>
             </div>
         </div>
 
         <div class="glass-card">
-            <h3 class="text-2xl font-bold text-white mb-10 text-center">🚩 Project Timeline</h3>
+            <h3 class="text-2xl font-bold text-white mb-10 text-center">🚩 Future Roadmap</h3>
             
-            <div class="relative">
-                <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-cyan-500 via-purple-500 to-pink-500 rounded-full opacity-30 hidden md:block"></div>
-
-                <div class="space-y-8 relative">
-                    <div class="flex flex-col md:flex-row items-center justify-between w-full">
-                        <div class="w-full md:w-5/12 order-2 md:order-1 text-right pr-0 md:pr-8 pl-12 md:pl-0 relative">
-                            <h4 class="text-lg font-bold text-white">Setup</h4>
-                            <p class="text-slate-400 text-sm mt-1">React & FastAPI 환경 구축<br>Gemini API 키 발급 및 연동</p>
-                        </div>
-                        <div class="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-8 h-8 rounded-full border-4 border-[#0f1016] bg-cyan-500 z-10 shadow-[0_0_15px_rgba(6,182,212,0.6)] order-1"></div>
-                        <div class="w-full md:w-5/12 order-3 md:order-2"></div>
+            <div class="relative max-w-4xl mx-auto">
+                <div class="absolute top-1/2 left-0 w-full h-1 bg-slate-800 -translate-y-1/2 hidden md:block rounded-full"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                    
+                    <div class="relative bg-slate-900/80 p-6 rounded-[2rem] border border-green-500/30 z-10 flex flex-col items-center text-center shadow-[0_0_20px_rgba(34,197,94,0.1)]">
+                        <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-black font-bold mb-4 shadow-lg shadow-green-500/40">1</div>
+                        <h4 class="text-green-400 font-bold text-lg mb-2">MVP Completed</h4>
+                        <p class="text-slate-400 text-sm">핵심 기능 구현 완료<br>JSON 구조화 및 UI 렌더링</p>
                     </div>
 
-                    <div class="flex flex-col md:flex-row items-center justify-between w-full">
-                        <div class="w-full md:w-5/12 order-2 md:order-1"></div>
-                        <div class="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-8 h-8 rounded-full border-4 border-[#0f1016] bg-purple-500 z-10 shadow-[0_0_15px_rgba(168,85,247,0.6)] order-1"></div>
-                        <div class="w-full md:w-5/12 order-2 md:order-2 pl-12 md:pl-8 relative">
-                            <h4 class="text-lg font-bold text-white">Core Logic</h4>
-                            <p class="text-slate-400 text-sm mt-1">Prompt Engineering<br>JSON 포맷 강제 및 파싱 에러 핸들링</p>
-                        </div>
+                    <div class="relative bg-slate-900/80 p-6 rounded-[2rem] border border-purple-500/30 z-10 flex flex-col items-center text-center hover:scale-105 transition-transform">
+                        <div class="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold mb-4 shadow-lg shadow-purple-500/40">2</div>
+                        <h4 class="text-purple-400 font-bold text-lg mb-2">UX & Maps</h4>
+                        <p class="text-slate-400 text-sm">지도 API 연동 (Pinning)<br>반응형 모바일 UI 최적화</p>
                     </div>
 
-                    <div class="flex flex-col md:flex-row items-center justify-between w-full">
-                        <div class="w-full md:w-5/12 order-2 md:order-1 text-right pr-0 md:pr-8 pl-12 md:pl-0 relative">
-                            <h4 class="text-lg font-bold text-white">UI Implementation</h4>
-                            <p class="text-slate-400 text-sm mt-1">동적 스케줄 카드 컴포넌트 구현<br>데이터 바인딩</p>
-                        </div>
-                        <div class="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-8 h-8 rounded-full border-4 border-[#0f1016] bg-pink-500 z-10 shadow-[0_0_15px_rgba(236,72,153,0.6)] order-1"></div>
-                        <div class="w-full md:w-5/12 order-3 md:order-2"></div>
-                    </div>
-
-                    <div class="flex flex-col md:flex-row items-center justify-between w-full">
-                        <div class="w-full md:w-5/12 order-2 md:order-1"></div>
-                        <div class="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-8 h-8 rounded-full border-4 border-[#0f1016] bg-white z-10 shadow-[0_0_15px_rgba(255,255,255,0.4)] order-1"></div>
-                        <div class="w-full md:w-5/12 order-2 md:order-2 pl-12 md:pl-8 relative">
-                            <h4 class="text-lg font-bold text-white">Release</h4>
-                            <p class="text-slate-400 text-sm mt-1">Vercel 배포 자동화<br>라이브 서비스 점검</p>
-                        </div>
+                    <div class="relative bg-slate-900/80 p-6 rounded-[2rem] border border-slate-700 z-10 flex flex-col items-center text-center hover:scale-105 transition-transform opacity-80 hover:opacity-100">
+                        <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-slate-300 font-bold mb-4 border border-slate-500">3</div>
+                        <h4 class="text-slate-300 font-bold text-lg mb-2">Reliability & DB</h4>
+                        <p class="text-slate-500 text-sm">AI 오류 자동 복구 (Retry)<br>Firebase/SQLite 데이터 저장</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="text-center py-16 px-6 rounded-[3rem] bg-gradient-to-b from-slate-900/50 to-purple-900/20 border border-white/5 relative overflow-hidden">
-            <div class="relative z-10">
-                <span class="text-purple-400 font-bold tracking-widest text-xs uppercase mb-4 block">Retrospective</span>
-                <h3 class="text-2xl md:text-3xl font-bold text-white mb-8 leading-snug">
-                    "프롬프트 엔지니어링은<br>
-                    단순한 질문이 아니라 <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">하나의 코딩</span>이었습니다."
-                </h3>
-                <p class="text-slate-400 max-w-2xl mx-auto leading-relaxed mb-10">
-                    API를 연결하는 것보다 중요한 것은 <strong>'불확실한 AI의 답변을 정형화된 데이터로 만드는 능력'</strong>임을<br>프로젝트를 통해 깊이 깨달았습니다.
-                </p>
-                <div class="inline-flex items-center gap-2 text-slate-500 text-sm font-medium px-4 py-2 rounded-full bg-black/20 border border-white/5">
-                    <span>&copy; 2025 Hwang Juseok</span>
-                    <span class="w-1 h-1 bg-slate-500 rounded-full"></span>
-                    <span>All rights reserved.</span>
-                </div>
-            </div>
+        <div class="text-center py-10 text-slate-500 text-sm">
+            <p class="mb-2">For detailed installation instructions, please check the <a href="https://github.com/HwangJuseok/Plan-AI" class="text-purple-400 hover:underline">README</a>.</p>
+            &copy; 2025 Hwang Juseok. All rights reserved.
         </div>
 
     </div>
 
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>

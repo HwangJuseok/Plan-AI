@@ -206,31 +206,26 @@ npm run preview    # 빌드 결과 로컬 미리보기
 
 ## 🛠️ 6. Troubleshooting & Dev Log (트러블슈팅 및 개발 일지)
 
-실제 코드를 정밀 분석한 결과, 기존에 알고 계셨던 내용과 **코드 상 실제 동작이 다른 지점**들이 있어 정확하게 짚어드립니다. 포트폴리오나 면접에서 설명하실 때 실제 구현과 어긋나지 않도록 참고하시면 좋을 것 같습니다.
+혼자 기획부터 배포까지 진행하면서 겪었던 시행착오와, 아직 해결하지 못한 과제들을 솔직하게 정리해보았습니다.
 
-### 🔸 [정정] "AI가 JSON 오류 시 자동 재요청(Self-Correction)한다" → 현재는 구현되어 있지 않음
-`main.py`의 `_create_travel_plan_core()`를 보면, `json.loads()`가 실패했을 때는 `Exception("AI가 유효한 JSON을 반환하지 않았습니다.")`을 던지고 그대로 `HTTPException(500, ...)`으로 끝날 뿐, **Gemini에게 재요청하는 루프는 존재하지 않습니다.** 즉 사용자는 실패 시 "처음부터 다시하기" 버튼으로 수동 재시도를 해야 하는 구조입니다.
-- **개선 방향**: 파싱/검증 실패 시 에러 메시지를 프롬프트에 포함해 `for attempt in range(2): ...` 형태로 1~2회 자동 재요청하는 루프를 추가하면, 실제로 "Self-Correction"이라는 이름에 걸맞은 동작이 됩니다.
+### 🔸 AI 자동 재시도, 사실 아직 못 붙였습니다
+처음 기획할 땐 AI가 JSON을 이상하게 반환하면 에러 메시지를 다시 프롬프트에 넣어서 자동으로 재요청하는 "Self-Correction" 로직까지 넣고 싶었습니다. 그런데 실제로 구현해보니 `json.loads()`가 실패하는 케이스가 생각보다 드물었고, 우선 서비스부터 돌아가게 만드는 게 급했던 터라 지금은 실패하면 그냥 `HTTPException(500)`으로 던지고, 프론트엔드에서 "처음부터 다시하기" 버튼으로 사용자가 직접 재시도하도록 해두었습니다. `for attempt in range(2)` 정도로 리트라이 루프를 도는 건 다음 업데이트 때 꼭 넣으려고 합니다.
 
-### 🔸 [정정] "환경변수(.env)로 개발/배포 API 엔드포인트를 동적 관리한다" → 현재는 하드코딩
-프론트엔드 `App.jsx`의 `const API_URL = 'https://plan-ai-f9kt.onrender.com/plan-ai'`는 **상수로 고정**되어 있으며, Vite의 `import.meta.env.VITE_API_URL` 같은 환경변수 참조는 코드 어디에도 없습니다.
-- **개선 방향**: `frontend/.env` + `.env.production`을 도입해 `const API_URL = import.meta.env.VITE_API_URL`로 바꾸면, 로컬 개발 시 백엔드 주소를 코드 수정 없이 전환할 수 있습니다.
+### 🔸 API 주소, 부끄럽지만 하드코딩 상태입니다
+`App.jsx`에 `API_URL`을 Render 배포 주소로 그대로 박아두었습니다. 로컬 백엔드를 테스트할 때마다 이 줄을 손으로 고쳤다가 배포 전에 다시 되돌리는 걸 몇 번 반복하고 나서야 "아, 이거 `.env`로 뺐어야 했는데" 싶었습니다. `VITE_API_URL` 환경변수로 분리하는 작업은 백로그에 올려두었습니다.
 
-### 🔸 죽은 코드(Dead Code) 2건 — 리팩터링 중 정리가 덜 된 흔적
-1. **`backend/app/models.py`**: `main.py`가 동일한 Pydantic 모델(`TripRequest`, `TripResponse` 등)을 자체적으로 다시 정의하고 있어, `models.py`는 **어디에서도 import되지 않는 완전한 중복 파일**입니다. (심지어 `ScheduleItem.type`의 허용값도 두 파일이 서로 다릅니다 — `models.py`는 6종, `main.py`는 `shopping`/`sightseeing`이 추가된 8종입니다.)
-2. **`frontend/src/App.css`**: `main.jsx`는 `App.css`를 import하지 않고 `index.css`만 불러오며, 실제 스타일은 `App.jsx` 내부의 `AppCssStyles` 템플릿 리터럴 문자열이 `<style>` 태그로 직접 렌더링되어 적용됩니다. `App.css` 파일 자체는 미사용 상태입니다.
-- **정리 방향**: 두 파일 모두 삭제하거나, 반대로 `main.py`가 `models.py`를 import하도록 통일하고 `App.jsx`가 `App.css`를 정식으로 import하도록 되돌리는 것 중 하나로 일원화하는 것을 권장합니다.
+### 🔸 리팩터링하다 만 파일들 (아직 정리하지 못했습니다)
+- `backend/app/models.py` — 원래 모델 정의를 여기 따로 빼두었는데, 나중에 `main.py` 안에서 프롬프트 빌더와 같이 관리하는 게 편해서 모델을 통째로 복사해와 다시 정의해버렸습니다. 그러다 보니 `models.py`는 지금 아무 데서도 호출되지 않는 상태입니다. 심지어 두 파일의 `ScheduleItem.type` 허용값도 미묘하게 다릅니다(`models.py`는 6종, `main.py`는 `shopping`/`sightseeing`이 추가되어 8종) — AI가 새 타입을 반환하는 걸 보고 급하게 `main.py` 쪽만 고치고 `models.py`는 깜빡했던 흔적입니다. 조만간 하나로 합치거나 `models.py`를 삭제해야 합니다.
+- `frontend/src/App.css` — 처음엔 여기에 스타일을 작성했는데, 배포 환경에서 CSS 파일이 제대로 적용되지 않는 이슈가 있어서 그냥 `App.jsx` 안에 템플릿 리터럴로 스타일을 통째로 넣어버렸습니다(`AppCssStyles`). 그 뒤로 `App.css`는 그대로 방치된 상태입니다. 둘 중 하나로 정리해야 하는데 아직 손을 대지 못했습니다.
 
-### 🔸 API 키 관리 (`.env`)
-`backend/.env`에 `GOOGLE_API_KEY`가 저장되며, `python-dotenv`의 `load_dotenv()`로 로드됩니다. 다행히 루트 `.gitignore`에 `backend/.env`가 명시되어 있어 **Git 커밋 자체는 방지**되고 있습니다. 다만,
-- Render(백엔드) / Vercel(프론트엔드) 배포 환경에서는 `.env` 파일이 아니라 **각 플랫폼의 환경변수(Environment Variables) 설정 화면**에 `GOOGLE_API_KEY`를 등록해야 배포본이 정상 동작합니다.
-- 로컬의 `.env` 파일이 외부로 공유(압축, 이메일, 채팅 등)되지 않도록 각별히 주의가 필요합니다. 한 번이라도 외부에 노출되었다면 즉시 [Google AI Studio](https://aistudio.google.com/app/apikey)에서 키를 폐기(Revoke)하고 재발급받는 것이 안전합니다.
+### 🔸 API 키, 다시 한번 무섭게 다뤄야 한다는 걸 느꼈습니다
+`backend/.env`에 `GOOGLE_API_KEY`를 넣고 `.gitignore`에도 등록해두었지만, 압축해서 옮기거나 채팅으로 공유하는 순간 `.gitignore`는 아무 소용이 없다는 걸 새삼 느꼈습니다. Render/Vercel 배포 시에는 `.env` 파일이 아니라 각 플랫폼의 환경변수 설정에 키를 등록해야 하며, 키가 한 번이라도 외부로 노출되었다면 무조건 Google AI Studio에서 바로 폐기하고 재발급받는 습관을 들여야겠다고 다짐했습니다.
 
-### 🔸 콜드 스타트(Cold Start) 지연 — Render 무료 플랜 특성
-Render 무료 티어는 일정 시간 요청이 없으면 서버가 슬립 상태로 전환됩니다. 첫 요청 시 서버가 깨어나는 데 수십 초가 걸릴 수 있어, 프론트엔드의 `axios.post(..., { timeout: 60000 })` (60초 타임아웃)은 이 콜드 스타트 지연을 감안한 값으로 보입니다. 첫 방문자가 "AI가 계획을 생성 중입니다..." 화면에서 예상보다 오래 대기할 수 있다는 점은 UX상 참고할 부분입니다.
+### 🔸 Render 무료 플랜 콜드 스타트 때문에 타임아웃을 60초로 늘렸습니다
+배포 초기에 첫 요청이 30초를 넘겨도 끝나지 않아 에러가 계속 발생했습니다. 원인을 찾아보니 Render 무료 티어가 트래픽이 없으면 서버를 재워버리는 것이었습니다. 그래서 `axios` 타임아웃을 넉넉하게 60초로 잡아두었는데, 그래도 첫 방문자 입장에서는 로딩 화면이 다소 길게 느껴질 수 있어 개선 여지가 있습니다.
 
-### 🔸 CORS 프리플라이트(OPTIONS) 대응
-`@app.options("/plan-ai")`로 프리플라이트 요청에 대한 명시적 200 응답을 별도로 정의해 둔 것은, `CORSMiddleware`만으로 프리플라이트가 간헐적으로 막히는 배포 환경(특히 Render처럼 프록시를 거치는 PaaS)에서 흔히 발생하는 이슈에 대한 보강 조치로 보입니다.
+### 🔸 CORS 프리플라이트 때문에 한참 헤맸습니다
+로컬에서는 멀쩡히 되던 게 배포하니까 요청 자체가 나가지 않아 한참 삽질했습니다. `CORSMiddleware`만으로는 Render 프록시를 거치면서 프리플라이트(OPTIONS) 요청이 가끔 막힌다는 걸 나중에 알게 되었고, `@app.options("/plan-ai")`를 따로 열어 명시적으로 200을 내려주고 나서야 해결되었습니다.
 
 ---
 
